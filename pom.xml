@@ -8,6 +8,13 @@
 	<name>SpMVC_050_todoList</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+
+	<properties>
+		<java-version>11</java-version>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.7.30</org.slf4j-version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-framework-bom -->
@@ -28,11 +35,6 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<properties>
-		<java-version>11</java-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.7.30</org.slf4j-version>
-	</properties>
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
