@@ -107,16 +107,18 @@ header div h3 {
 	padding: 15px;
 	border-radius: 18px;
 	box-shadow: 2px 2px 10px #a5a5a5ba;
-	background-image: url(${rootPath}/static/images/texture.PNG);
 	max-width: 900px;
 	margin: 10px auto;
+}
+#dis {
+	
 }
 </style>
 <link rel="stylesheet" href="${rootPath}/static/css/w3css.css">
 <script>
 	const rootPath = "${rootPath}"
 </script>
-<script src="${rootPath}/static/js/list.js?ver=1"></script>
+<script src="${rootPath}/static/js/list.js?ver=7"></script>
 </head>
 <body>
 	
@@ -155,10 +157,21 @@ header div h3 {
 			<table class="hs_memo hs_container">
 				<c:forEach items="${TODOLIST}" var="todo" varStatus="INDEX">
 						<tr data-seq="${todo.t_seq}">
-							<td>${todo.t_sdate}</td>
-							<td>${todo.t_stime}</td>
-							<td>${todo.t_content}</td>
-							<td><input type="checkbox"></td>
+						<c:choose>
+							<c:when test="${empty todo.t_edate}">
+								<td  class="able">시작: ${todo.t_sdate}</td>
+								<td class="able">시작: ${todo.t_stime}</td>
+								<td  class="able">할일: ${todo.t_content}</td>
+							</c:when>
+							<c:otherwise>
+								<c:if test="${not empty todo.t_edate}">
+									<td class="dis">완료: ${todo.t_edate}</td>
+									<td class="dis">완료: ${todo.t_etime}</td>
+									<td  class="dis">할일: ${todo.t_content}</td>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+							<td class="final"><button class="comp_btn">완료</button></td>
 						</tr>
 				</c:forEach>
 			</table>

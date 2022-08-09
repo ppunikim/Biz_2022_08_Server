@@ -43,20 +43,24 @@ public class TodoServiceImplV1 implements TodoService{
 	}
 
 	@Override
-	public int insertTodo(String t_content, String t_comp) {
+	public int insertTodo(Long t_seq) { 
+		TodoVO todoVO = todoDao.findById(t_seq);
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 		
-		TodoVO todoVO = TodoVO.builder().t_sdate(dayFormat.format(date))
-							  .t_stime(timeFormat.format(date)).t_content(t_content).build();
+		if(!(todoVO.getT_edate() == null)) {
+			todoVO.setT_edate(null);
+			todoVO.setT_etime(null);
+		} else {
+			todoVO.setT_edate(dayFormat.format(date));
+			todoVO.setT_etime(timeFormat.format(date));
+		}
+	
 		
-//		if(t_comp == "완료") {
-//			todoVO = TodoVO.builder().t_sdate(dayFormat.format(date))
-//					  .t_stime(timeFormat.format(date)).build();
-//		}
 		
-		return todoDao.insert(todoVO);
+		
+		return todoDao.update(todoVO);
 	
 	}
 	
@@ -79,8 +83,14 @@ public class TodoServiceImplV1 implements TodoService{
 
 	@Override
 	public int insertTodo(String t_content) {
-		// TODO Auto-generated method stub
-		return 0;
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		
+		TodoVO todoVO = TodoVO.builder().t_sdate(dayFormat.format(date))
+							  .t_stime(timeFormat.format(date)).t_content(t_content).build();
+		
+		return todoDao.insert(todoVO);
 	}
 
 	

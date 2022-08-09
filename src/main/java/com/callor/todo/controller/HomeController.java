@@ -40,7 +40,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/todo/list",method=RequestMethod.POST)
 	public String insert(String t_content) {
-		todoService.insertTodo(t_content, "aa");
+		todoService.insertTodo(t_content);
 		return "redirect:/todo/list";
 	}
 	
@@ -68,6 +68,12 @@ public class HomeController {
 		return "redirect:/todo/list";
 	}
 
+	@RequestMapping(value="/{seq}/done", method = RequestMethod.GET)
+	public String done(
+			@PathVariable("seq") Long t_seq) {
+		todoService.insertTodo(t_seq);
+		return "redirect:/todo/list";
+	}
 	
 	
 }
